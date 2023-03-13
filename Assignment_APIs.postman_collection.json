@@ -1,0 +1,111 @@
+{
+	"info": {
+		"_postman_id": "cc6f70ac-8753-4566-a329-1a4c79e3bc00",
+		"name": "Assignment_APIs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11760903"
+	},
+	"item": [
+		{
+			"name": "PublicAPIs",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// This script extracts the ID of the authenticating user, so you do not have to pass it yourself.",
+							"if (!pm.environment.get('access_token') || !pm.request.url.path.includes(':id')) {",
+							"    return;",
+							"}",
+							"",
+							"const [userId] = pm.environment.get('access_token').split('-');",
+							"",
+							"if (!userId) {",
+							"    return;",
+							"}",
+							"",
+							"const userIdIndex = pm.request.url.path.indexOf(':id');",
+							"pm.request.url.path[userIdIndex] = userId;"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"VERIFICATION 1: Verify Status code s 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"VERIFICATION 2: Verify NFR - Performance - RT < 100ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(10000);\r",
+							"});\r",
+							"pm.test(\"VERIFICATION 3: response should be okay to process\", function () {\r",
+							"  pm.response.to.not.be.error;\r",
+							"  pm.response.to.have.jsonBody('');\r",
+							"  pm.response.to.not.have.jsonBody('error');\r",
+							"});\r",
+							"pm.test(\"VERIFICATION 4: Body contains Category\",() => {\r",
+							"  pm.expect(pm.response.text()).to.include(\"Animals\");\r",
+							"});\r",
+							"pm.test(\"VERIFICATION 5: Content-Type header is existing\", () => {\r",
+							"  pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"pm.test(\"VERIFICATION 6: Content-Type header is application/json\", () => {\r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+							"});\r",
+							"pm.test(\"VERIFICATION 7: Cookie JSESSIONID is present\", () => {\r",
+							"  pm.expect(pm.cookies.has('JSESSIONID')).to.be.false;\r",
+							"});\r",
+							"pm.test(\"VERIFICATION 8: Response property matches Body Params\", function () {\r",
+							"  const responseJson = pm.response.json();\r",
+							"  //pm.expect(responseJson.Auth).to.eql(apiKey);\r",
+							"  pm.expect(responseJson.count).to.eql(1425);\r",
+							"});\r",
+							"pm.test(\"VERIFICATION 9: Response property contains API param\", function () {\r",
+							"if (pm.response.json().API) {\r",
+							"  console.log(\"API was found!\");\r",
+							"  // do something\r",
+							"} else {\r",
+							"  console.log(\"no API Present\");\r",
+							"  //do something else\r",
+							"}\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "// Replace tweet-id-you-want-to-like with the ID you wish to like\n{\n    \"tweet_id\": \"tweet-id-you-want-to-like\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.publicapis.org/entries",
+					"protocol": "https",
+					"host": [
+						"api",
+						"publicapis",
+						"org"
+					],
+					"path": [
+						"entries"
+					]
+				},
+				"description": "Allows an authenticated user to like a Tweet.\n\nFor full details, see the [API reference](https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/post-users-user_id-likes) for this endpoint.\n\n[Sign up](https://t.co/signup) for the Twitter API"
+			},
+			"response": []
+		}
+	]
+}
