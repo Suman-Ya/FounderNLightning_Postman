@@ -15,6 +15,8 @@ https://api.publicapis.org/entries
 
 #Execution: Import the json in Postman Local and run the API.
 
+Note: 
+Global environments not used for this API.
 
 
 
