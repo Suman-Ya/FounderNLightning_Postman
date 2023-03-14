@@ -23,10 +23,10 @@ Used GET API for Founder and Lightning Contact US page.
 Utilized Global environment for URL reusability in multiple end points.
 
 # Scenarios:
-1. Load Contact Us page with valid parameter./p
+1. Load Contact Us page with valid parameter.<br/>
    Verified response, its performance and validation in 7 Verification Points.
 
-2. Load Contact Us page with blank parameter./p
+2. Load Contact Us page with blank parameter.<br/>
    Verified response, its performance and validation in 7 Verification Points.
 
 POST API still in progress as in my local collection it shows 400 bad request.
