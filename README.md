@@ -29,11 +29,20 @@ Utilized Global environment for URL reusability in multiple end points.
 2. Load Contact Us page with blank parameter.<br/>
    Verified response, its performance and validation in 7 Verification Points.
 
-POST API still in progress as in my local collection it shows 400 bad request.
+POST API still in progress as in my local collection it shows 403 forbidden and success:false
 
+In case POST API works :
 
-
-
-
-
-
+Scenarios would be for testing:
+1. 1 valid scenario with "How did yo hear about us" Filled in -it should show "success-true"  
+2. 1 valid scenario without "How did yo hear about us" Filled in -it should show "success-true"
+3. Blank firstname, lastname and send the request - it should show error
+4. Blank email - it should show error "success-false"
+5. Blank message - it should show error "success-false"
+6. Invalid email eg : 11@@hotmail.co.uk : it should show error "success-false"
+7. spaces in email eg :       @gmail.com : it should show error "success-false"
+8. only numeric values email ID : 11@hotmail.co.uk : it should show error "success-false"
+9. only alpha charcters in email ID : aaaaa@hotmail.co.uk : it should show error "success-false"
+10. special characters in email ID : >~!@#$%^&*()_@hotmail.co.uk : it should show error "success-false"
+11. special characters in last name and first name : >~!@#$%^&*()_@<> : it should show error "success-false"
+12. special characters in email ID : >~!@#$%^&*()_@hotmail.co.uk : it should show error "success-false"  
